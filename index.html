@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(ellipse at 10% 20%, rgba(0,187,212,0.08), transparent 10%),
+                  radial-gradient(ellipse at 90% 80%, rgba(255,0,132,0.06), transparent 10%),
+                  linear-gradient(180deg, #050509 0%, #0f0f14 100%);
+      color: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .form-container {
+      position: relative;
+      background: linear-gradient(135deg, rgba(12,12,20,0.9), rgba(18,18,28,0.8));
+      padding: 28px 36px;
+      border-radius: 14px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0,187,212,0.06) inset;
+      width: 420px;
+      border: 1px solid rgba(0,187,212,0.06);
+      transform: translateZ(0);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 18px;
+      color: #00e5ff;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(0,229,255,0.35), 0 0 20px rgba(255,0,132,0.06);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #bfc8d2;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.04);
+      background: linear-gradient(180deg, rgba(30,30,40,0.7), rgba(20,20,30,0.6));
+      color: #eaf6ff;
+      outline: none;
+      font-size: 15px;
+      transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .gender-options {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .gender-options label {
+      font-weight: normal;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #ff0080 0%, #00e5ff 100%);
+      border: none;
+      border-radius: 10px;
+      color: #031017;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      letter-spacing: 0.6px;
+      box-shadow: 0 6px 18px rgba(0,229,255,0.12), 0 0 30px rgba(255,0,132,0.06);
+      transition: transform 200ms cubic-bezier(.2,.9,.3,1), box-shadow 200ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 32px rgba(0,229,255,0.18), 0 0 50px rgba(255,0,132,0.12);
+    }
+
+    /* Neon glow on focus */
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 4px 26px rgba(0,229,255,0.12), 0 0 10px rgba(255,0,132,0.06);
+      border-color: rgba(0,229,255,0.28);
+      transform: translateY(-2px);
+    }
+
+    /* Fancy form header bar */
+    .accent-bar {
+      position: absolute;
+      left: -40px;
+      top: -40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at 30% 30%, rgba(0,229,255,0.14), transparent 20%), radial-gradient(circle at 80% 80%, rgba(255,0,132,0.08), transparent 20%);
+      filter: blur(30px);
+      transform: rotate(18deg);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .form-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animated grid background */
+    .grid-bg {
+      position: absolute;
+      inset: -20%;
+      background-image: linear-gradient(0deg, rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,132,0.02) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+      opacity: 0.6;
+      animation: floatGrid 10s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes floatGrid {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); }
+      50% { transform: translateY(-6px) translateX(6px) rotate(0.5deg); }
+      100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    }
+
+    /* Subtle animated labels */
+    .hint {
+      font-size: 12px;
+      color: rgba(190,200,220,0.7);
+      margin-top: 6px;
+    }
+
+    /* small responsive tweak */
+    @media (max-width: 480px) {
+      .form-container { width: 92%; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container" role="region" aria-label="Registration form">
+    <div class="accent-bar" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="form-inner">
+      <h2>Registration Form</h2>
+      <form id="regForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required aria-required="true">
+          <div class="hint" id="nameHint">Your display name (first + last)</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required aria-required="true">
+          <div class="hint" id="emailHint">We'll send a confirmation email</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required aria-required="true" minlength="8">
+          <div class="hint" id="pwHint">At least 8 characters</div>
+        </div>
+
+        <div class="form-group">
+          <label>Gender</label>
+          <div class="gender-options" role="radiogroup" aria-labelledby="genderLabel">
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="desc">Brief Description</label>
+          <textarea id="desc" name="desc" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <div id="formMsg" role="status" aria-live="polite" style="margin-top:12px;color:#a7fffb;font-size:13px;display:none"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Small JS to add submit feedback and inline validation
+    (function(){
+      const form = document.getElementById('regForm');
+      const msg = document.getElementById('formMsg');
+
+      function showMessage(text, success=true){
+        msg.textContent = text;
+        msg.style.display = 'block';
+        msg.style.color = success ? '#7efcff' : '#ff6b9a';
+        msg.animate([{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'translateY(0)'}], {duration:300, easing:'cubic-bezier(.2,.9,.3,1)'});
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        // Simple validation
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const pw = form.password.value;
+
+        if(!name || !email || !pw){
+          showMessage('Please fill required fields.', false);
+          return;
+        }
+        if(pw.length < 8){
+          showMessage('Password must be at least 8 characters.', false);
+          return;
+        }
+
+        // success state animation
+        const btn = form.querySelector('.btn');
+        btn.disabled = true;
+        btn.style.transform = 'scale(0.98)';
+        btn.textContent = 'Registering...';
+
+        setTimeout(()=>{
+          btn.textContent = 'Done';
+          btn.style.boxShadow = '0 12px 36px rgba(0,229,255,0.22)';
+          showMessage('Welcome, ' + (name.split(' ')[0] || name) + '! Account created (demo).');
+        }, 900);
+      });
+    })();
+  </script>
+</body>
+</html>
